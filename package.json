@@ -1,0 +1,27 @@
+{
+  "name": "nile-mart",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nile Mart - premium Ethiopian e-commerce platform",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client && npm run build -w server",
+    "start": "npm run start -w server",
+    "db:migrate": "npm run db:migrate -w server",
+    "db:seed": "npm run db:seed -w server",
+    "db:create-admin": "npm run db:create-admin -w server",
+    "db:reset": "npm run db:reset -w server",
+    "test": "npm run test -w server",
+    "typecheck": "npm run typecheck -w server && npm run typecheck -w client"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}
