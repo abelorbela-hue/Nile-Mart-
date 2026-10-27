@@ -214,6 +214,40 @@ Then in a browser:
 
 ---
 
+## Troubleshooting the first deploy
+
+**A push creates two deployments named `client` and `server`.** That means two
+separate Vercel projects were created (one per workspace). This app needs a
+single project at the repository root; the `server` project can never succeed as
+a static/Vite deployment. Delete or ignore the extra projects, keep one project
+with **Root Directory = repository root**, and run the API on Railway.
+
+**The `client` project fails on `vite.config.ts`.** The error looks like
+`Cannot find name 'process'` or `Cannot find name 'node:url'`. It happens when
+the project root is `client/`, so the workspace-hoisted `@types/node` is not
+installed. Two fixes:
+
+- preferred: point the project's Root Directory at the repository root so
+  `vercel.json` and the workspace lockfile are used; or
+- keep the standalone project and rely on the `@types/node` dev dependency that
+  `client/package.json` now declares.
+
+A standalone `client` project still has no API proxy or SPA fallback, because
+the root `vercel.json` does not apply to it. That is why the repository-root
+project is the supported setup.
+
+**The build passes but the site calls `/api/...` and gets 404.** Replace
+`API-HOST.example.com` in `vercel.json` with the deployed API domain and
+redeploy.
+
+To read a failed build log locally:
+
+```bash
+npx vercel login
+npx vercel link --repo
+npx vercel inspect dpl_XXXXXXXX --logs
+```
+
 ## Limits and alternatives
 
 - **Upload size:** Vercel proxies cap request bodies around 4.5 MB. Product
