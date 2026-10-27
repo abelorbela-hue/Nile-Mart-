@@ -137,9 +137,10 @@ insert into store_settings (key, value, is_public) values
   ]'::jsonb, true),
   ('free_shipping_threshold', '300000'::jsonb, true),
   ('social_links', '[
-    {"label": "Facebook", "url": "https://www.facebook.com"},
-    {"label": "Instagram", "url": "https://www.instagram.com"},
-    {"label": "Telegram", "url": "https://telegram.org"}
+    {"label": "Facebook", "url": "https://www.facebook.com/nilemart"},
+    {"label": "Twitter", "url": "https://twitter.com/nilemart"},
+    {"label": "Instagram", "url": "https://www.instagram.com/nilemart/"},
+    {"label": "Telegram", "url": "https://telegram.org/nilemart/"}
   ]'::jsonb, true),
   ('returns', '{
     "windowDays": 7,
